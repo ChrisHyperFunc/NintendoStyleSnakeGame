@@ -889,3 +889,26 @@ function getOppositeDirection(dir) {
         default: return dir;
     }
 }
+
+// 新增：模拟按下 WASD 键的函数
+function simulateKeyPress(key) {
+    const event = new KeyboardEvent('keydown', { key: key });
+    document.dispatchEvent(event);
+}
+
+// 在文件的适当位置添加以下代码
+document.getElementById('up').addEventListener('click', () => {
+    simulateKeyPress('w');
+});
+
+document.getElementById('down').addEventListener('click', () => {
+    simulateKeyPress('s');
+});
+
+document.getElementById('left').addEventListener('click', () => {
+    simulateKeyPress('a');
+});
+
+document.getElementById('right').addEventListener('click', () => {
+    simulateKeyPress('d');
+});
