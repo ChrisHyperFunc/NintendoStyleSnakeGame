@@ -7,6 +7,10 @@
 ## 特点
 这是一个受经典任天堂风格启发的 3D 贪吃蛇游戏。控制你的蛇去吃食物并成长，同时避免与墙壁和自己碰撞。游戏中还有世界旋转和蘑菇道具等惊喜玩法，增加了游戏的乐趣！
 
+你可以在线游玩这个游戏，地址是：
+- [https://snakegame.201945.xyz/](https://snakegame.201945.xyz/)
+- [https://chrishyperfunc.github.io/NintendoStyleSnakeGame/](https://chrishyperfunc.github.io/NintendoStyleSnakeGame/)
+
 ## 安装
 1. 克隆这个仓库：
    ```bash

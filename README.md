@@ -7,6 +7,10 @@ Nintendo Style 3D Snake Game
 ## Description
 This is a 3D snake game inspired by the classic Nintendo style. Navigate your snake to eat food and grow while avoiding collisions with walls and yourself. Enjoy surprises like world rotation and mushroom power-ups that add exciting gameplay elements!
 
+You can play the game online at:
+- [https://snakegame.201945.xyz/](https://snakegame.201945.xyz/)
+- [https://chrishyperfunc.github.io/NintendoStyleSnakeGame/](https://chrishyperfunc.github.io/NintendoStyleSnakeGame/)
+
 ## Installation
 1. Clone the repository:
    ```bash
