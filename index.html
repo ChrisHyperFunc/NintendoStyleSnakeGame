@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D贪吃蛇游戏</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap');
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #1a1b1e;
+            font-family: 'Noto Sans SC', Arial, sans-serif;
+            overflow: hidden;
+            color: #ffffff;
+        }
+
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .dialog {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: linear-gradient(145deg, #e31837, #ff0000);
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            color: white;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .dialog.active {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .dialog h1 {
+            font-size: 36px;
+            margin: 0 0 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .dialog h2 {
+            font-size: 28px;
+            margin: 0 0 15px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .dialog p {
+            font-size: 18px;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .dialog .stats {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        button {
+            background: #ffffff;
+            color: #e31837;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.2s ease;
+            font-family: 'Noto Sans SC', Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: #f8f8f8;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        #score {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .controls {
+            margin: 20px 0;
+            font-size: 16px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .highlight {
+            color: #FFD700;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="score">分数: 0</div>
+        
+        <div id="welcome" class="dialog active">
+            <h1>3D贪吃蛇</h1>
+            <p>欢迎来到这个充满挑战的 3D 世界！</p>
+            <div class="controls">
+                使用 <span class="highlight">↑←↓→</span> 或 <span class="highlight">WASD</span> 控制方向
+            </div>
+            <p>每吃到一个食物，场景会旋转，带来全新挑战！</p>
+            <button onclick="startGame()">开始游戏</button>
+        </div>
+
+        <div id="game-over" class="dialog">
+            <h2>游戏结束</h2>
+            <div class="stats">
+                <p>最终得分: <span id="final-score" class="highlight">0</span></p>
+                <p>全球排名: <span id="final-rank" class="highlight">计算中...</span></p>
+                <p class="rank-note" style="font-size: 14px; color: rgba(255,255,255,0.7);">全球排名系统即将上线</p>
+            </div>
+            <button onclick="startGame()">再来一次</button>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+    <script src="game3d.js"></script>
+</
