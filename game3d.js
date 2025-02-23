@@ -892,7 +892,30 @@ function getOppositeDirection(dir) {
 
 // 新增：模拟按下 WASD 键的函数
 function simulateKeyPress(key) {
-    const event = new KeyboardEvent('keydown', { key: key });
+    let inputDirection = '';
+    switch (key.toLowerCase()) {
+        case 'arrowup':
+        case 'w': inputDirection = 'up'; break;
+        case 'arrowdown':
+        case 's': inputDirection = 'down'; break;
+        case 'arrowleft':
+        case 'a': inputDirection = 'left'; break;
+        case 'arrowright':
+        case 'd': inputDirection = 'right'; break;
+        default: return;
+    }
+
+    const adjustedDirection = getAdjustedDirection(inputDirection);
+    const oppositeDirections = {
+        'up': 'down',
+        'down': 'up',
+        'left': 'right',
+        'right': 'left'
+    };
+
+    if (direction !== oppositeDirections[adjustedDirection]) {
+        nextDirection = adjustedDirection;
+    }
     document.dispatchEvent(event);
 }
 

@@ -165,7 +165,7 @@
         /* 任天堂风格操控盘样式 */
         #controls {
             position: absolute;
-            bottom: 100px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             display: grid;
@@ -173,10 +173,10 @@
                 ". up ."
                 "left . right"
                 ". down .";
-            gap: 10px;
+            gap: 4px;
             background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 20px;
+            padding: 10px;
+            border-radius: 12px;
             backdrop-filter: blur(5px);
             z-index: 999;
             touch-action: manipulation;
@@ -188,10 +188,10 @@
             background: linear-gradient(145deg, #ffffff, #e6e6e6);
             color: #1a1b1e;
             border: none;
-            border-radius: 12px;
-            width: 50px;
-            height: 50px;
-            font-size: 20px;
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            font-size: 16px;
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: -2px -2px 5px rgba(255, 255, 255, 0.1),
@@ -205,7 +205,6 @@
             -webkit-user-select: none;
             user-select: none;
         }
-
         #up { grid-area: up; }
         #left { grid-area: left; }
         #right { grid-area: right; }
