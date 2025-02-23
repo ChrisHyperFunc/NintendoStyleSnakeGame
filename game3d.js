@@ -829,7 +829,7 @@ function gameOver() {
 
 // 更新分数显示
 function updateScore() {
-    document.getElementById('score').textContent = `分数: ${score}`;
+    document.getElementById('score').textContent = `${getText('score')}${score}`;
 }
 
 // 根据场景旋转获取实际方向
