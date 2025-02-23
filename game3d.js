@@ -76,6 +76,9 @@ function initThreeJS() {
     ground.receiveShadow = true;
     gameContainer.add(ground);
 
+    // 添加边界栅栏
+    createFence();
+
     // 添加装饰性树木
     addDecorations();
 }
@@ -131,6 +134,72 @@ function createSnakeSegment(position) {
 // 游戏中的树木数组
 let trees = [];
 let mushrooms = [];
+
+// 创建边界栅栏
+function createFence() {
+    const fenceColor = 0xFFFFFF; // 白色栅栏
+    const postMaterial = new THREE.MeshPhongMaterial({
+        color: fenceColor,
+        specular: 0x111111,
+        shininess: 30
+    });
+
+    // 栅栏参数
+    const postWidth = 0.3;
+    const postHeight = 1.5;
+    const postDepth = 0.3;
+    const railHeight = 0.2;
+    const railDepth = 0.15;
+    const spacing = 2; // 栏杆之间的间距
+    const gridSize = config.gridSize;
+    const offset = gridSize / 2;
+
+    // 创建栏杆几何体
+    const postGeometry = new THREE.BoxGeometry(postWidth, postHeight, postDepth);
+    const railGeometry = new THREE.BoxGeometry(spacing, railHeight, railDepth);
+
+    // 创建四周的栅栏
+    for (let side = 0; side < 4; side++) {
+        const isHorizontal = side % 2 === 0;
+        const length = gridSize;
+        const posts = Math.floor(length / spacing) + 1;
+
+        for (let i = 0; i < posts; i++) {
+            // 创建垂直栏杆
+            const post = new THREE.Mesh(postGeometry, postMaterial);
+            const position = isHorizontal ?
+                new THREE.Vector3(i * spacing - offset, postHeight / 2, (side === 0 ? -offset : offset)) :
+                new THREE.Vector3((side === 1 ? offset : -offset), postHeight / 2, i * spacing - offset);
+            post.position.copy(position);
+            post.castShadow = true;
+            post.receiveShadow = true;
+            gameContainer.add(post);
+
+            // 添加横向连接（除了最后一个位置）
+            if (i < posts - 1) {
+                const rail1 = new THREE.Mesh(railGeometry, postMaterial);
+                const rail2 = new THREE.Mesh(railGeometry, postMaterial);
+                
+                if (isHorizontal) {
+                    rail1.position.set(i * spacing + spacing/2 - offset, postHeight * 0.75, (side === 0 ? -offset : offset));
+                    rail2.position.set(i * spacing + spacing/2 - offset, postHeight * 0.25, (side === 0 ? -offset : offset));
+                } else {
+                    rail1.rotation.y = Math.PI / 2;
+                    rail2.rotation.y = Math.PI / 2;
+                    rail1.position.set((side === 1 ? offset : -offset), postHeight * 0.75, i * spacing + spacing/2 - offset);
+                    rail2.position.set((side === 1 ? offset : -offset), postHeight * 0.25, i * spacing + spacing/2 - offset);
+                }
+                
+                rail1.castShadow = true;
+                rail2.castShadow = true;
+                rail1.receiveShadow = true;
+                rail2.receiveShadow = true;
+                gameContainer.add(rail1);
+                gameContainer.add(rail2);
+            }
+        }
+    }
+}
 
 // 添加装饰性元素
 function addDecorations() {
